@@ -1,0 +1,179 @@
+
+  <nav class="navbar bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="../../assets/th.jpg" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
+        <b>TO-DO List</b>
+      </a>
+    </div>
+  </nav>
+
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <button class="nav-link active" id="createtask-tab" data-bs-toggle="tab" data-bs-target="#createtask" type="button" role="tab" aria-controls="createtask" aria-selected="true">
+        Create Task
+      </button>
+    </li>
+    <li class="nav-item" (click)="getcomplete()">
+      <a class="nav-link" href="#complete" id="complete-tab" data-bs-toggle="tab" role="tab" aria-controls="complete" aria-selected="false">
+        Completed Task
+      </a>
+    </li>
+    <li class="nav-item" (click)="getterminate()">
+      <a class="nav-link" href="#terminate" id="terminate-tab" data-bs-toggle="tab" role="tab" aria-controls="terminate" aria-selected="false">
+        Terminated Task
+      </a>
+    </li>
+  </ul>
+
+  <div class="tab-content mt-4">
+    <div class="tab-pane fade show active" id="createtask" role="tabpanel" aria-labelledby="createtask-tab">
+      <div class="search mb-4">
+        <div class="row g-3 align-items-center">
+          <div class="col-auto">
+            <form >
+              <input class="form-control form-control-lg" type="time" placeholder="Enter Time" aria-label="Task time"  [formControl]="time">
+
+              <input class="form-control form-control-lg" type="text" placeholder="Enter Task" aria-label="Task input" [formControl]="info">
+            </form>
+          
+          </div>
+          <div class="col-auto">
+            <button class="btn btn-primary" (click)="postdata()">Send</button>
+          </div>
+        </div>
+      </div>
+      <div>
+        
+      </div>
+      <table class="table container  text-center">
+        <thead class="table-dark">
+          <tr>
+            <th>SI.NO</th>
+            <th>Task</th>
+            <th>Duration</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let task of tasks ;let i=index" >
+            <td (click)="idget(task.id)"  data-bs-toggle="modal" data-bs-target="#exampleModal">{{i+1}}</td>
+            <td (click)="idget(task.id)"  data-bs-toggle="modal" data-bs-target="#exampleModal">{{task.info}}</td>
+            <td (click)="idget(task.id)"  data-bs-toggle="modal" data-bs-target="#exampleModal">{{task.time}}</td>
+            <td (click)="idget(task.id)"  data-bs-toggle="modal" data-bs-target="#exampleModal">{{task.status}}</td>
+            <td (click)="precomplete(task.id,i)"  data-bs-toggle="modal" data-bs-target="#exampleModal1"><i class="bi bi-hourglass-split split" ></i></td>
+          </tr>
+        </tbody>
+      </table>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">TASK</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h4>{{detinform}}</h4>
+        <p><b>Time Left</b>:<i class="timeleft"> {{ dettime === '00:00' ? 'Task is terminated' : 'HH ' + dettime + ' MM' + 'to finish work ' }}</i>  </p>  
+    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" >Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">TASK</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <h4>Did You Complete the Task</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="complete()" 
+        [disabled]="dettime === '00:00' || detinform?.status === 'Terminated'" 
+        data-bs-dismiss="modal">
+  Yes I Complete
+</button>
+      </div>
+    </div>
+  </div>
+</div>
+    </div>
+
+    <div class="tab-pane fade" id="complete" role="tabpanel" aria-labelledby="complete-tab">
+        <table class="table container  text-center">
+            <thead class="table-dark">
+              <tr>
+                <th>SI.NO</th>
+                <th>Task</th>
+                
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let ctask of ctasks ;let i=index">
+                <td>{{i+1}}</td>
+                <td >{{ctask.info}}</td>
+                
+                <td>{{ctask.status}}</td>
+                <td><button class="btn btn-danger" (click)="delete(ctask.id,i)">Delete</button></td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+    <div class="tab-pane fade" id="terminate" role="tabpanel" aria-labelledby="terminate-tab">
+      <table class="table container  text-center">
+          <thead class="table-dark">
+            <tr>
+              <th>SI.NO</th>
+              <th>Task</th>
+              <th>Status</th>
+              <th>Action</th>
+
+            </tr>
+          </thead>
+          <tbody>
+          
+              <tr *ngFor="let ttask of ttasks ;let i=index">
+                <td>{{i+1}}</td>
+                <td >{{ttask.info}}</td>
+                <td>{{ttask.status}}</td>
+                <td  (click)="prenew(ttask.id)" data-bs-toggle="modal" data-bs-target="#exampleModal2" ><i class="bi bi-repeat" ></i></td>
+
+              </tr>
+           
+          </tbody>
+        </table>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Terminated Task</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h5>Do you want Renew this task</h5>
+        <h6>Duration</h6>
+        <input class="form-control form-control-lg" type="time" placeholder="Enter Duration" aria-label="Time input" [formControl]="retime">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="renew()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
+  </div>

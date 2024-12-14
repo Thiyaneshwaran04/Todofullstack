@@ -1,0 +1,95 @@
+.search {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.table {
+    border-collapse: separate;
+    border-spacing: 0 10px;
+    border-radius: 10px;
+    width: 70%;
+}
+
+.table tr  {
+    background-color: grey;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+    font-family: 'math';
+}
+
+.table tr:hover {
+    transform: scale(1.02);
+}
+
+.table th, .table td {
+    padding: 15px;
+    text-align: center;
+}
+.form-control{
+    margin: 10px;
+}
+.timeleft{
+    color: red;
+}
+.split{
+    transform: scale(1.02);
+}/* Styling for modal-body */
+.modal-body {
+    padding: 20px;
+    background-color: #f8f9fa;  /* Light background */
+    border-radius: 8px;
+    border: 1px solid #ddd;  /* Light border for modal */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 400px;  /* Modal width */
+    margin: 20px auto;  /* Center modal in the screen */
+    font-family: 'Arial', sans-serif;  /* Font family for text */
+}
+
+/* Heading for the modal */
+.modal-body h5 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Subheading for the modal */
+.modal-body h6 {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+/* Styling for the time input */
+input[type="time"] {
+    padding: 10px;
+    font-size: 16px;
+    color: #333;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    width: 100%;  /* Full width of the container */
+    margin-top: 5px;
+    background-color: #fff;
+}
+
+/* Focus effect for time input */
+input[type="time"]:focus {
+    border-color: #007bff;  /* Blue border on focus */
+    outline: none;
+    box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.2);
+}
+
+/* Optional button styling for modal buttons */
+.modal-footer button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.modal-footer button:hover {
+    background-color: #0056b3;
+}
