@@ -9,7 +9,7 @@ const bodyParser=require("body-parser")
 mongoose.connect(dbURI).then((res)=>{
     console.log("running in 2000");
     console.log("connected to db");
-    app.listen(2000)
+    // app.listen(2000)
 
 })
 .catch( (err)=>{
